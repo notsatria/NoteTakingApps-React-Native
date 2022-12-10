@@ -10,12 +10,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import colors from '../../components/colors';
-import {useNavigation} from '@react-navigation/native';
 
 const Intro = ({onFinish}) => {
   const [name, setName] = useState('');
-
-  // const navigation = useNavigation();
 
   const handleOnChangeText = text => {
     setName(text);
@@ -24,7 +21,6 @@ const Intro = ({onFinish}) => {
   const onPressSubmit = async () => {
     const user = {name: name};
     await AsyncStorage.setItem('user', JSON.stringify(user));
-    // navigation.navigate('NoteScreen');
     if (onFinish) onFinish();
   };
 

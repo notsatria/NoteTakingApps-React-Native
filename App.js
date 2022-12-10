@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useEffect, useState, } from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import Navigation from './src/navigation';
 import Intro from './src/screen/HomeScreen/intro';
@@ -8,6 +8,12 @@ import {NavigationContainer, StackActions} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NoteDetail from './src/components/NoteDetail/NoteDetail';
 import NoteProvider from './src/Context/NoteProvider';
+import SignInScreen from './src/screen/SignInScreen/SignInScreen';
+import SignUpScreen from './src/screen/SignUpScreen/SignUpScreen';
+import ConfirmEmailScreen from './src/screen/ConfirmEmailScreen/ConfirmEmailScreen';
+import ForgotPasswordScreen from './src/screen/ForgotPasswordScreen/ForgotPasswordScreen';
+import NewPasswordScreen from './src/screen/NewPasswordScreen/NewPasswordScreen';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -26,13 +32,29 @@ export default function App() {
     // AsyncStorage.clear();
     findUser();
   }, []);
+
   if (!user.name) return <Intro onFinish={findUser}></Intro>;
   return (
     // <NoteScreen user={user}></NoteScreen>
     <NavigationContainer>
       <NoteProvider>
         <Stack.Navigator
-          screenOptions={{headerTitle: '', headerTransparent: true}}>
+          screenOptions={{
+            headerTitle: '',
+            headerTransparent: true,
+            headerShown: false,
+          }}>
+          <Stack.Screen name="SignIn" component={SignInScreen}></Stack.Screen>
+          <Stack.Screen name="SignUp" component={SignUpScreen}></Stack.Screen>
+          <Stack.Screen
+            name="ConfirmEmail"
+            component={ConfirmEmailScreen}></Stack.Screen>
+          <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPasswordScreen}></Stack.Screen>
+          <Stack.Screen
+            name="NewPassword"
+            component={NewPasswordScreen}></Stack.Screen>
           <Stack.Screen
             component={RenderNoteScreen}
             name="NoteScreen"></Stack.Screen>
